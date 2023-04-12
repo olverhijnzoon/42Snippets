@@ -28,10 +28,9 @@ func main() {
 	fmt.Println("# 42Snippets")
 	fmt.Println("## Maps")
 
-	// The program measures the average time it takes to perform a lookup in maps
-	// of different sizes. As maps in Go are implemented using hash tables,
-	// the lookup time complexity is constant, meaning the average time should
-	// be roughly the same regardless of the map size.
+	/*
+		The program measures the average time it takes to perform a lookup in maps of different sizes. As maps in Go are implemented using hash tables, the lookup time complexity is constant, meaning the average time should be roughly the same regardless of the map size.
+	*/
 
 	numLookups := 4206912
 	avgTime := measureLookupTime(1000, numLookups)
