@@ -1,4 +1,4 @@
-module 42Snippets
+module github.com/olverhijnzoon/42Snippets/eulermethod
 
 go 1.19
 

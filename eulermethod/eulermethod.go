@@ -69,11 +69,11 @@ func main() {
 
 	// Initial conditions - harmonic oscillator
 	x0 = 0.0
-	y0 = 1.0   // initial displacement
-	dy0 := 0.0 // initial velocity
-	k := 1.0   // spring constant
-	m := 1.0   // mass of oscillating object
-	stepSize= 0.1    // step size
+	y0 = 1.0       // initial displacement
+	dy0 := 0.0     // initial velocity
+	k := 1.0       // spring constant
+	m := 1.0       // mass of oscillating object
+	stepSize = 0.1 // step size
 
 	// Create a new plot
 	p2 := plot.New()
@@ -86,8 +86,8 @@ func main() {
 
 	// Euler method
 	for x, i := x0, 0; x < 10; x += stepSize {
-		y0 += stepSize* dy0
-		dy0 += stepSize* dy_harmonicoscillator(x, y0, dy0, k, m)
+		y0 += stepSize * dy0
+		dy0 += stepSize * dy_harmonicoscillator(x, y0, dy0, k, m)
 		fmt.Printf("x=%f, y=%f, dy=%f\n", x, y0, dy0)
 		points2[i].X = x
 		points2[i].Y = y0
