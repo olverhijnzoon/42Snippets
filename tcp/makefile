@@ -4,7 +4,9 @@ build_go:
 	go build -o $(BINARY)clientX $(BINARY)client.go
 
 run_go:
-	./$(BINARY)X
+	chmod +x ./$(BINARY)serverX
+	./$(BINARY)serverX & ./$(BINARY)clientX
+	lsof -i :8080
 
 god: build_go run_go
 
