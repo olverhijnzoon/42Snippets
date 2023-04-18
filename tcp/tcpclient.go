@@ -17,6 +17,14 @@ func main() {
 	}
 	defer conn.Close()
 
+	// TCP retransmission timeouts are OS-managed and cannot be configured in Go. However, read/write deadlines are set here independent of TCP retransmission mechanisms.
+	// timeout := 3 * time.Second
+	// err = conn.SetDeadline(time.Now().Add(timeout))
+	// if err != nil {
+	//   fmt.Println("Error setting deadline:", err)
+	//	 os.Exit(1)
+	// }
+
 	fmt.Println("Connected to server")
 
 	successfulCount := 0
