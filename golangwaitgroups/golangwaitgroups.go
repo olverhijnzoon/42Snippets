@@ -36,7 +36,7 @@ func main() {
 	fmt.Println("Second example")
 
 	/*
-		In this second example, the main goroutine waits for the user to press a key, then closes the done channel and waits for the goroutines to stop by calling Wait on the WaitGroup. Finally, it prints a message indicating that all goroutines have stopped.
+		In this second example, the main goroutine waits for the user to press Enter, then closes the done channel and waits for the goroutines to stop by calling Wait on the WaitGroup. Finally, it prints a message indicating that all goroutines have stopped.
 	*/
 
 	// Create a new WaitGroup
