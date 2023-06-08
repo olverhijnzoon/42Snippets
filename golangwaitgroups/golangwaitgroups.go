@@ -45,7 +45,7 @@ func main() {
 	// Create a channel to signal when to stop the goroutines
 	done := make(chan struct{})
 
-	// Create soome work
+	// Create some random offset to simulate work time
 	work := time.Duration(rand.Intn(5000))
 
 	// Launch three goroutines
