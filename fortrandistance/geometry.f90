@@ -11,6 +11,7 @@
 ! Euclidean Distance: The most common use of distance. In simple terms, it is the shortest distance between two points, and it can be used for all types of data.
 ! Manhattan Distance (L1 norm): Also known as city block distance. It is the distance between two points in a grid-based system (like a chess board or city blocks).
 ! Chebyshev Distance (L∞ norm): It is a distance measure between two vectors or points in N-dimensional vector space. It is also known as maximum value distance.
+! Minkowski Distance: It is a generalized distance metric that includes the Euclidean, Manhattan, and Chebyshev distances as special cases for different values of a parameter called p. The formula for the Minkowski distance between two points p1(x1, y1, z1) and p2(x2, y2, z2) in a 3D space is (|x1-x2|^p + |y1-y2|^p + |z1-z2|^p)^(1/p). For p=2, this gives the Euclidean distance; for p=1, the Manhattan distance; and for p->∞, the Chebyshev distance.
 
 ! Define a module named Geometry
 module Geometry
