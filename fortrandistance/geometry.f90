@@ -9,7 +9,7 @@
 ! and prints the coordinates of the points and the distances.
 
 ! Euclidean Distance: The most common use of distance. In simple terms, it is the shortest distance between two points, and it can be used for all types of data.
-!Manhattan Distance (L1 norm): Also known as city block distance. It is the distance between two points in a grid-based system (like a chess board or city blocks).
+! Manhattan Distance (L1 norm): Also known as city block distance. It is the distance between two points in a grid-based system (like a chess board or city blocks).
 
 ! Define a module named Geometry
 module Geometry
