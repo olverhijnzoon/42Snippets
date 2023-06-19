@@ -1,4 +1,6 @@
 *X
+*.o
+fortran*/*.mod
 *.lock
 target
 *.toml
