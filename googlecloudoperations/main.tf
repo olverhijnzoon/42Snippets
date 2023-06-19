@@ -1,7 +1,7 @@
 provider "google" {
   project = var.project
-  region  = "europe-west3"
-  zone    = "europe-west3-c"
+  region  = var.region
+  zone    = var.zone
 }
 
 resource "google_storage_bucket" "terraform_state" {
@@ -11,7 +11,7 @@ resource "google_storage_bucket" "terraform_state" {
 
 resource "google_compute_instance" "default" {
   name         = "snippets42"
-  machine_type = "e2-micro"
+  machine_type = var.machine_type
 
   boot_disk {
     initialize_params {
