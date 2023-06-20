@@ -1,4 +1,7 @@
 *X
+*.tfvars
+*.hcl
+.terraform
 *.o
 fortran*/*.mod
 *.lock
