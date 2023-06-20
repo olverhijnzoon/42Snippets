@@ -22,6 +22,7 @@ resource "google_storage_bucket" "terraform_state" {
 resource "google_compute_instance" "default" {
   name         = "snippets42"
   machine_type = var.machine_type
+  tags = ["http-server"]
 
   boot_disk {
     initialize_params {
@@ -35,6 +36,25 @@ resource "google_compute_instance" "default" {
     # Enable external IP
     access_config {}
   }
+
+  metadata_startup_script = <<SCRIPT
+  apt-get update
+  apt-get install -y nginx
+  systemctl start nginx
+  SCRIPT
+}
+
+resource "google_compute_firewall" "default" {
+  name    = "nginx-allow-http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  target_tags = ["http-server"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_monitoring_uptime_check_config" "default" {
