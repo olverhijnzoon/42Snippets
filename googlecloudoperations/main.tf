@@ -25,7 +25,7 @@ resource "google_compute_instance" "default" {
 
   boot_disk {
     initialize_params {
-      image = "debian-11-bullseye"
+      image = "debian-11"
     }
   }
 
