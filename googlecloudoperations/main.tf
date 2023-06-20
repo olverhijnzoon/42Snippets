@@ -91,3 +91,7 @@ resource "google_monitoring_alert_policy" "default" {
     google_monitoring_notification_channel.default.name
   ]
 }
+
+module "dashboards" {
+  source = "./modules/dashboards"
+}
