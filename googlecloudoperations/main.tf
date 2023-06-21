@@ -19,9 +19,38 @@ resource "google_storage_bucket" "terraform_state" {
   location = "EU"
 }
 
+resource "google_service_account" "ops_agent" {
+  account_id   = "ops-agent-service-account"
+  display_name = "Service Account for Google Cloud Ops Agent"
+}
+
+resource "google_project_iam_member" "monitoring_writer" {
+  project = var.project
+  role    = "roles/monitoring.metricWriter"
+  member  = "serviceAccount:${google_service_account.ops_agent.email}"
+}
+
+resource "google_project_iam_member" "monitoring_viewer" {
+  project = var.project
+  role    = "roles/monitoring.viewer"
+  member  = "serviceAccount:${google_service_account.ops_agent.email}"
+}
+
+resource "google_project_iam_member" "logs_writer" {
+  project = var.project
+  role    = "roles/logging.logWriter"
+  member  = "serviceAccount:${google_service_account.ops_agent.email}"
+}
+
 resource "google_compute_instance" "default" {
   name         = "snippets42"
   machine_type = var.machine_type
+  tags         = ["http-server"]
+
+  service_account {
+    email  = google_service_account.ops_agent.email
+    scopes = ["cloud-platform"]
+  }
 
   boot_disk {
     initialize_params {
@@ -31,10 +60,58 @@ resource "google_compute_instance" "default" {
 
   network_interface {
     network = "default"
-
     # Enable external IP
     access_config {}
   }
+
+  metadata_startup_script = <<SCRIPT
+  apt-get update
+  apt-get install -y apache2 php7.0
+  systemctl start apache2
+  curl -sSO https://dl.google.com/cloudagents/add-google-cloud-ops-agent-repo.sh
+  sudo bash add-google-cloud-ops-agent-repo.sh --also-install
+
+  # Create a configuration file for Ops Agent
+  cat > /etc/google-cloud-ops-agent/config.yaml <<EOL
+  logging:
+    receivers:
+      apache_access:
+        type: apache_access
+      apache_error:
+        type: apache_error
+    service:
+      pipelines:
+        apache:
+          receivers:
+            - apache_access
+            - apache_error
+  metrics:
+    receivers:
+      apache:
+        type: apache
+    service:
+      pipelines:
+        apache:
+          receivers:
+            - apache
+  EOL
+
+  # Restart the Ops Agent to apply the new configuration
+  sudo service google-cloud-ops-agent restart
+SCRIPT
+}
+
+resource "google_compute_firewall" "default" {
+  name    = "apache-allow-http"
+  network = "default"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["80"]
+  }
+
+  target_tags = ["http-server"]
+  source_ranges = ["0.0.0.0/0"]
 }
 
 resource "google_monitoring_uptime_check_config" "default" {
@@ -60,34 +137,29 @@ resource "google_monitoring_uptime_check_config" "default" {
   depends_on = [google_compute_instance.default]
 }
 
-resource "google_monitoring_notification_channel" "default" {
-  display_name = "notification-channel"
-  type         = "email"
-  labels = {
-    email_address = var.email_address
+module "alerts" {
+  source = "./modules/alerts"
+  email_address = var.email_address
+}
+
+module "dashboards" {
+  source = "./modules/dashboards"
+}
+
+resource "google_monitoring_custom_service" "apache_service" {
+  service_id = "apache-service"
+  display_name = "Apache Web Server"
+
+  # Define the service's custom resource type.
+  # This example uses 'gce_instance' as the resource type for the Nginx web server.
+  telemetry {
+    resource_name = "gce_instance"
   }
 }
 
-resource "google_monitoring_alert_policy" "default" {
-  display_name = "alert-policy"
-  combiner     = "OR"
-
-  conditions {
-    display_name = "uptime-check"
-    condition_threshold {
-      filter     = "metric.type=\"monitoring.googleapis.com/uptime_check/check_passed\" resource.type=\"uptime_url\""
-      comparison = "COMPARISON_LT"
-      threshold_value = 1
-      duration   = "60s"
-
-      aggregations {
-        alignment_period   = "60s"
-        per_series_aligner = "ALIGN_NEXT_OLDER"
-      }
-    }
-  }
-
-  notification_channels = [
-    google_monitoring_notification_channel.default.name
-  ]
+module "servicelevels" {
+  source      = "./modules/servicelevels"
+  goal        = 0.99 # For example, 99% availability
+  service     = "apache-service"
+  slo_id      = "apache-availability-slo"
 }
