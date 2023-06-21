@@ -9,7 +9,7 @@ import (
 
 func main() {
 
-	fmt.Println("# Golang Snippets")
+	fmt.Println("# 42Snippets")
 	fmt.Println("## Linear Optimization")
 
 	/*
