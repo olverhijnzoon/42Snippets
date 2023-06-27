@@ -2,8 +2,11 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
+	"time"
 
 	mystore "github.com/olverhijnzoon/42Snippets/golanginterfaces/mystore"
+	storacle "github.com/olverhijnzoon/42Snippets/golanginterfaces/storacle"
 )
 
 /*
@@ -30,11 +33,17 @@ type Store interface {
 }
 
 func main() {
+
 	// Create a variable of type Store
 	var s Store
 
 	// Set s to a value that implements the Store interface like MyStore from mystore package
-	s = &mystore.MyStore{}
+	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
+	if rand.Intn(2) == 0 {           // Generate a random number that is either 0 or 1
+		s = &mystore.MyStore{}
+	} else {
+		s = &storacle.MyStore{}
+	}
 
 	// Call a function that expects a Store
 	err := processData(s)
