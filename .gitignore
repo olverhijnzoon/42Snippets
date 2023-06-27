@@ -1,4 +1,5 @@
 */*X
+*.sum
 *.tfvars
 *.hcl
 .terraform
