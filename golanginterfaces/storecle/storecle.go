@@ -1,4 +1,4 @@
-package storacle
+package storecle
 
 import "fmt"
 
@@ -15,7 +15,7 @@ func (s *Storecle) Save(data []byte) error {
 
 func (s *Storecle) Load() ([]byte, error) {
 	// Implement the Load method
-	fmt.Println("Loading with Storacle")
+	fmt.Println("Loading with Storecle")
 	// Load the data from the storage location
 	return []byte{}, nil
 }

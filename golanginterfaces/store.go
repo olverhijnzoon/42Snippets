@@ -6,7 +6,7 @@ import (
 	"time"
 
 	mystore "github.com/olverhijnzoon/42Snippets/golanginterfaces/mystore"
-	storacle "github.com/olverhijnzoon/42Snippets/golanginterfaces/storecle"
+	storecle "github.com/olverhijnzoon/42Snippets/golanginterfaces/storecle"
 )
 
 /*
@@ -38,7 +38,7 @@ func main() {
 	fmt.Println("## Golang Interfaces")
 
 	/*
-		The provided code demonstrates the use of an interface in Golang named Store, which declares two methods: Save(data []byte) error for storing data, and Load() ([]byte, error) for retrieving data. In the main function, it creates a variable s of type Store and, based on a random number generator, it assigns s a value that implements the Store interface from either the mystore or storacle packages. Afterwards, the code calls a function named processData, which expects a type Store as input. This function first calls the Load() method to get the data and after some processing, it calls the Save() method to save back the processed data to the store.
+		The provided code demonstrates the use of an interface in Golang named Store, which declares two methods: Save(data []byte) error for storing data, and Load() ([]byte, error) for retrieving data. In the main function, it creates a variable s of type Store and, based on a random number generator, it assigns s a value that implements the Store interface from either the mystore or storecle packages. Afterwards, the code calls a function named processData, which expects a type Store as input. This function first calls the Load() method to get the data and after some processing, it calls the Save() method to save back the processed data to the store.
 	*/
 
 	// Create a variable of type Store
@@ -49,7 +49,7 @@ func main() {
 	if rand.Intn(2) == 0 {           // Generate a random number that is either 0 or 1
 		store = &mystore.MyStore{}
 	} else {
-		store = &storacle.Storecle{}
+		store = &storecle.Storecle{}
 	}
 
 	// Call a function that expects a Store
