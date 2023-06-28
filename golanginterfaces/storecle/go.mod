@@ -1,3 +1,3 @@
 module github.com/olverhijnzoon/42Snippets/golanginterfaces/storecle
 
-go 1.19
+go 1.20
