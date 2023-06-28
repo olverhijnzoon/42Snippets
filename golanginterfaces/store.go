@@ -6,7 +6,7 @@ import (
 	"time"
 
 	mystore "github.com/olverhijnzoon/42Snippets/golanginterfaces/mystore"
-	storacle "github.com/olverhijnzoon/42Snippets/golanginterfaces/storacle"
+	storacle "github.com/olverhijnzoon/42Snippets/golanginterfaces/storecle"
 )
 
 /*
@@ -34,26 +34,33 @@ type Store interface {
 
 func main() {
 
-	// Create a variable of type Store
-	var s Store
+	fmt.Println("# 42Snippets")
+	fmt.Println("## Golang Interfaces")
 
-	// Set s to a value that implements the Store interface like MyStore from mystore package
+	/*
+		The provided code demonstrates the use of an interface in Golang named Store, which declares two methods: Save(data []byte) error for storing data, and Load() ([]byte, error) for retrieving data. In the main function, it creates a variable s of type Store and, based on a random number generator, it assigns s a value that implements the Store interface from either the mystore or storacle packages. Afterwards, the code calls a function named processData, which expects a type Store as input. This function first calls the Load() method to get the data and after some processing, it calls the Save() method to save back the processed data to the store.
+	*/
+
+	// Create a variable of type Store
+	var store Store
+
+	// Set store to a value that implements the Store interface like MyStore from mystore package
 	rand.Seed(time.Now().UnixNano()) // Seed the random number generator
 	if rand.Intn(2) == 0 {           // Generate a random number that is either 0 or 1
-		s = &mystore.MyStore{}
+		store = &mystore.MyStore{}
 	} else {
-		s = &storacle.MyStore{}
+		store = &storacle.Storecle{}
 	}
 
 	// Call a function that expects a Store
-	err := processData(s)
+	err := processData(store)
 	if err != nil {
 		// Handle the error...
 	}
 }
 
-func processData(s Store) error {
-	data, err := s.Load()
+func processData(store Store) error {
+	data, err := store.Load()
 	if err != nil {
 		return err
 	}
@@ -61,5 +68,5 @@ func processData(s Store) error {
 	// Process the data...
 	fmt.Println("Processing the data!")
 
-	return s.Save(data)
+	return store.Save(data)
 }
