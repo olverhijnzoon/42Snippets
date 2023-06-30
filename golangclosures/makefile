@@ -1,8 +1,5 @@
 BINARY=golangclosures
 
-compress_image:
-	gzip -c 42SnippetsLogo.png > 42SnippetsLogo.png.gz
-
 build_go:
 	go build -o $(BINARY)X $(BINARY).go
 
