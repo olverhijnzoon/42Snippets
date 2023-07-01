@@ -1,5 +1,6 @@
 */*X
 *.sum
+*.work
 *.tfvars
 *.hcl
 .terraform
