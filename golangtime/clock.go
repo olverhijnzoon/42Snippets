@@ -15,7 +15,7 @@ func clock(stop chan bool) {
 			fmt.Print("\033[H\033[2J\033[32m")
 			fmt.Printf("%v\033[0m\033[?25l", time.Now().Format("Mon 15:04:05, Jan 2 OTC"))
 		case <-stop:
-			fmt.Println("\nStopping the clock.")
+			fmt.Println("\nStopping the clock.\033[?25h")
 			return
 		}
 	}
