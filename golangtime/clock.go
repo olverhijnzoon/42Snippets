@@ -12,8 +12,8 @@ func clock(stop chan bool) {
 	for {
 		select {
 		case <-secondTicker.C:
-			fmt.Print("\033[H\033[2J") // Move cursor to the start of the line and clear it
-			fmt.Printf("%v\r", time.Now().Format("Mon 15:04:05, Jan 2 CEST"))
+			fmt.Print("\033[H\033[2J\033[32m")
+			fmt.Printf("%v\033[0m\033[?25l", time.Now().Format("Mon 15:04:05, Jan 2 OTC"))
 		case <-stop:
 			fmt.Println("\nStopping the clock.")
 			return
