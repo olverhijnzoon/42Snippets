@@ -1,26 +1,24 @@
 #!/bin/bash
 
+interval=1
+count=1
+
 # Run sar command
 echo "Collecting system activity information"
-sar 1 1
+sar $interval $count
 echo "--------------------------------------------"
 
 # Print CPU usage
 echo "Printing CPU usage"
-sar -u 1 1
+sar -u $interval $count
 echo "--------------------------------------------"
 
 # Print I/O statistics
 echo "Printing I/O statistics"
-sar -b 1 1
+sar -b $interval $count
 echo "--------------------------------------------"
 
 # Print memory usage statistics
 echo "Printing memory usage statistics"
-sar -r 1 1
-echo "--------------------------------------------"
-
-# List running processes
-echo "Listing running processes"
-ps -eo pid,user,pcpu,pmem,vsz,rss,comm | head -10
+sar -r $interval $count
 echo "--------------------------------------------"
