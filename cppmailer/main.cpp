@@ -1,6 +1,7 @@
 #include <curl/curl.h>
 #include <string>
 #include <unistd.h>
+#include <iostream>
 
 size_t ReadCallback(void* ptr, size_t size, size_t nmemb, void* userp) {
     std::string* s = static_cast<std::string*>(userp);
