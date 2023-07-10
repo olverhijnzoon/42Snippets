@@ -2,7 +2,6 @@
 #include <string>
 #include <unistd.h>
 
-// Define a function for CURLOPT_READFUNCTION
 size_t ReadCallback(void* ptr, size_t size, size_t nmemb, void* userp) {
     std::string* s = static_cast<std::string*>(userp);
     if (size * nmemb < 1 || s->empty())
@@ -13,6 +12,13 @@ size_t ReadCallback(void* ptr, size_t size, size_t nmemb, void* userp) {
 }
 
 int main() {
+    std::cout << "# 42Snippets" << std::endl;
+    std::cout << "## Mail & Curl" << std::endl;
+
+    /*
+        The callback function is used as a custom data provider for libcurl's HTTP POST or FTP upload operations (in this specific case, for sending an email using SMTP protocol). It reads the contents of a std::string one character at a time, placing each character in the buffer provided by libcurl. This allows you to send a std::string as the body of the email using SMTP. The function also returns the number of units actually written (in this case, 1 for each character or 0 if there are no more characters), so libcurl knows when all data has been sent.
+    */
+
     CURL *curl;
     CURLcode res;
 
@@ -24,7 +30,7 @@ int main() {
             struct curl_slist *recipients = NULL;
             std::string from = "from@mailhog.example";
             std::string to = "to@mailhog.example";
-            std::string mailbody = "Subject: Test Email\r\n"
+            std::string mailbody = "Subject: 42Snippets\r\n"
                                    "\r\n"
                                    "This is a test email.";
 
