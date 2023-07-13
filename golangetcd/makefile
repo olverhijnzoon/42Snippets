@@ -33,13 +33,18 @@ build-go:
 	go build -o $(BINARY)X $(BINARY).go
 
 run-go:
-	./$(BINARY)X
+	sleep 10
+	kubectl port-forward svc/etcd 2379:2379 & 
+	./$(BINARY)X &
 
-god: build-go run-go
+change-config:
+	sleep 10
+	kubectl exec -it etcd-0 -- etcdctl put config '{"setting1": "Changed 42Snippet config!", "setting2": 42}'
+
+etcd-demo: build-go apply-etcd run-go change-config
 
 clean-go:
 	rm -f $(BINARY).go
 
 clean-binaries:
 	rm -f ./*X
-
