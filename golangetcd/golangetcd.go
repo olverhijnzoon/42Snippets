@@ -16,7 +16,9 @@ type myConfig struct {
 	Setting2 int    `json:"setting2"`
 }
 
+// The watchConfig function monitors changes to the "config" key in etcd, updates the local configuration when a change is detected, logs the new configuration, and signals the completion of a successful change via a channel.
 func watchConfig(cli *clientv3.Client, config *myConfig, done chan bool) {
+	// Establish a watch on the "config" key in etcd
 	watchChan := cli.Watch(context.Background(), "config")
 	for watchResp := range watchChan {
 		for _, event := range watchResp.Events {
@@ -37,6 +39,10 @@ func main() {
 
 	fmt.Println("# 42Snippets")
 	fmt.Println("## Golang ETCD")
+
+	/*
+		This 42Snippet demonstrates the usage of etcd in a Go program within a Kubernetes environment. When using "make etcd-demo" an etcd cluster is applied and this Golang program is executed. A demo configuration is setup from a JSON file and this Go program also watches for changes to this configuration in etcd. A delayed change is triggered by "make etcd-demo" and when this change is detected, the new configuration is logged and the program exits, demonstrating a basic use case of etcd for configuration management.
+	*/
 
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{"localhost:2379", "localhost:22379", "localhost:32379"},
