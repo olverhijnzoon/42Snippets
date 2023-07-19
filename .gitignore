@@ -10,3 +10,4 @@ fortran*/*.mod
 target
 *.toml
 rust
+__pycache__/
