@@ -11,3 +11,4 @@ target
 *.toml
 rust
 __pycache__/
+42snippets_inception/
