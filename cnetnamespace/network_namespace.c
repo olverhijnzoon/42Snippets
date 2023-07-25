@@ -1,4 +1,9 @@
-// network_namespace_demo.c
+/*
+    This 42Snippet prints the network interfaces in the initial network namespace before creating a new network namespace. Then, in the child_main function, it prints the network interfaces in the new network namespace.
+
+    When you run this program, you should see that the initial network namespace has several network interfaces (including lo and possibly eth0, wlan0, etc.), while the new network namespace has only the loopback interface lo. This shows that the new network namespace is isolated from the host's network.
+*/
+
 #define _GNU_SOURCE
 #include <sched.h>
 #include <stdio.h>
@@ -33,11 +38,6 @@ int child_main(void* arg) {
     return 0;
 }
 
-/*
-    This 42Snippet prints the network interfaces in the initial network namespace before creating a new network namespace. Then, in the child_main function, it prints the network interfaces in the new network namespace.
-
-    When you run this program, you should see that the initial network namespace has several network interfaces (including lo and possibly eth0, wlan0, etc.), while the new network namespace has only the loopback interface lo. This shows that the new network namespace is isolated from the host's network.
-*/
 int main() {
     printf("42 Snippets - Network Namespaces\n\n");
     printf("Network interfaces in initial network namespace:\n");
