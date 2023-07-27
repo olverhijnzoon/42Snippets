@@ -105,15 +105,6 @@ func (ps *ProtocolState) HandleCommitMessage(message *ProtocolMessage) error {
 		return errors.New("content cannot be empty")
 	}
 
-	// Parse the content of the message
-	// In a real implementation, the content would likely be a structured data type that you would parse into a Go struct.
-	// For simplicity, let's assume that the content is a string that represents the new group state.
-	newGroupState := message.Content
-
-	// Update the group state
-	// In a real implementation, you would perform a cryptographic operation to update the group state.
-	ps.Group.State = newGroupState
-
 	return nil
 }
 

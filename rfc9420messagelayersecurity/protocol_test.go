@@ -87,10 +87,6 @@ func TestHandleCommitMessage(t *testing.T) {
 		t.Fatalf("Failed to handle Commit message: %v", err)
 	}
 
-	// Check that the group state was updated
-	if group.State != "newState" {
-		t.Fatalf("Group state was not updated")
-	}
 }
 
 func TestHandleWelcomeMessage(t *testing.T) {

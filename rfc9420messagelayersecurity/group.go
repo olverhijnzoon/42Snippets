@@ -7,13 +7,13 @@ import (
 type Group struct {
 	Name    string
 	Members []*Member
-	State   string
 	Epoch   uint64
 	Root    *TreeNode
 }
 
 type TreeNode struct {
 	Member *Member
+	Parent *TreeNode
 	Left   *TreeNode
 	Right  *TreeNode
 }
