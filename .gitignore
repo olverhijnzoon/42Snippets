@@ -12,3 +12,4 @@ target
 rust
 __pycache__/
 42snippets_inception/
+*.pem
