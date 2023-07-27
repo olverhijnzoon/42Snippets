@@ -8,6 +8,14 @@ type Group struct {
 	Name    string
 	Members []*Member
 	State   string
+	Epoch   uint64
+	Root    *TreeNode
+}
+
+type TreeNode struct {
+	Member *Member
+	Left   *TreeNode
+	Right  *TreeNode
 }
 
 func NewGroup(name string) (*Group, error) {
