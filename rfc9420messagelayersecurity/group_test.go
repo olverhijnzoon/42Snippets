@@ -51,3 +51,22 @@ func TestMessageEncryptionDecryption(t *testing.T) {
 		t.Errorf("Decrypted message is incorrect, got: %s, want: %s", decryptedMessage, message)
 	}
 }
+
+func TestRemoveMember(t *testing.T) {
+	group, _ := NewGroup("TestGroup")
+	member, _ := NewMember("Alice")
+	group.AddMember(member)
+
+	err := group.RemoveMember(member)
+	if err != nil {
+		t.Fatalf("Failed to remove member from group: %v", err)
+	}
+
+	if group.Root != nil {
+		t.Errorf("Expected group root to be nil, got '%v'", group.Root)
+	}
+
+	if group.Epoch != 2 {
+		t.Errorf("Expected group epoch to be 2, got '%d'", group.Epoch)
+	}
+}

@@ -5,9 +5,13 @@ import (
 	"crypto/rsa"
 	"encoding/base64"
 	"fmt"
+	"sync/atomic"
 )
 
+var idCounter int32
+
 type Member struct {
+	ID   int32
 	Name string
 	Keys *KeyPair
 }
@@ -19,8 +23,12 @@ func NewMember(name string) (*Member, error) {
 		return nil, fmt.Errorf("failed to generate RSA key pair: %v", err)
 	}
 
+	// Generate a unique ID for the member
+	id := atomic.AddInt32(&idCounter, 1)
+
 	// Create a new Member
 	member := &Member{
+		ID:   id,
 		Name: name,
 		Keys: keys,
 	}
