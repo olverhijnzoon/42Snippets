@@ -1,0 +1,2 @@
+god: 
+	go test -v
