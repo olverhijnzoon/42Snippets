@@ -27,7 +27,7 @@ func main() {
 	/*
 		This Go snippet is a simple implementation of the Legendre transformation in the field of thermodynamics. The program represents thermodynamic variables with a struct, Variables, that includes properties like entropy, internal energy, temperature, volume, and pressure. The core function of the program, LegendreTransform, performs the transformation from internal energy representation to the enthalpy representation. Enthalpy is a measure of the total energy of a thermodynamic system and is used to calculate energy changes in a system.The transformation applied in the program is based on the equation H = U + PV, where H is the enthalpy, U is the internal energy, P is the pressure, and V is the volume.
 
-		When the system absorbs heat from its surroundings, its enthalpy increases (ΔH > 0), and the process is said to be endothermic. Common examples of endothermic processes include melting ice into water or evaporating water into steam. In both cases, the system (the ice or the water) absorbs heat from its surroundings, leading to an increase in its enthalpy.
+		When the system absorbs heat from its surroundings, its enthalpy increases (ΔH > 0), and the process is said to be endothermic.
 	*/
 
 	// define some thermodynamic variables
