@@ -20,6 +20,14 @@ func LegendreTransform(v Variables) float64 {
 }
 
 func main() {
+
+	fmt.Println("# 42Snippets")
+	fmt.Println("## Golang Legendretransformation")
+
+	/*
+		This Go snippet is a simple implementation of the Legendre transformation in the field of thermodynamics. The program represents thermodynamic variables with a struct, Variables, that includes properties like entropy, internal energy, temperature, volume, and pressure. The core function of the program, LegendreTransform, performs the transformation from internal energy representation to the enthalpy representation. Enthalpy is a measure of the total energy of a thermodynamic system and is used to calculate energy changes in a system.The transformation applied in the program is based on the equation H = U + PV, where H is the enthalpy, U is the internal energy, P is the pressure, and V is the volume.
+	*/
+
 	// define some thermodynamic variables
 	v := Variables{
 		Entropy:        1.5, // kJ/K
