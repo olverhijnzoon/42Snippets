@@ -44,7 +44,6 @@ print("  Tuple inside dict:", nested_structure['tuple_inside_dict'])
 print("  Dict inside dict:", nested_structure['dict_inside_dict'])
 print("  Set inside dict:", nested_structure['set_inside_dict'])
 
-
 # List Comprehensions
 squares = [x**2 for x in range(10)]
 print("List Comprehensions:", squares)
@@ -67,10 +66,13 @@ print("NamedTuple:", tuple(p))
 
 # DefaultDict
 from collections import defaultdict
-dd = defaultdict(int)
-dd['key1'] += 1
-dd['key2'] += 2
-print("DefaultDict:", dict(dd))
+text = "apple banana cherry"
+character_count = defaultdict(int)
+for char in text:
+    # default value for any missing key is 0
+    # increase counter without checking if character already exists
+    character_count[char] += 1
+print("Character Count using a DefaultDict:", dict(character_count))
 
 # Heapq
 import heapq
