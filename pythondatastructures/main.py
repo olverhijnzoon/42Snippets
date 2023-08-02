@@ -63,8 +63,9 @@ print("NamedTuple:", p)
 # DefaultDict
 from collections import defaultdict
 dd = defaultdict(int)
-dd['key'] += 1
-print("DefaultDict:", dd)
+dd['key1'] += 1
+dd['key2'] += 2
+print("DefaultDict:", dict(dd))
 
 # Heapq
 import heapq
@@ -74,7 +75,7 @@ print("Heap:", heap)
 
 # OrderedDict
 from collections import OrderedDict
-od = OrderedDict.fromkeys('abcde')
+od = OrderedDict(a=1, b=2, c=3, d=4, e=5)
 print("OrderedDict:", od)
 
 # ChainMap
@@ -82,7 +83,7 @@ from collections import ChainMap
 baseline = {'a': 1, 'b': 2}
 adjustments = {'b': 3, 'c': 4}
 combined = ChainMap(adjustments, baseline)
-print("ChainMap:", combined)
+print("ChainMap:", dict(combined))
 
 # Frozenset
 fs = frozenset([1, 2, 3, 2, 1])
@@ -91,4 +92,5 @@ print("Frozenset:", fs)
 # Array
 from array import array
 arr = array('I', [1, 2, 3, 4])
-print("Array:", arr)
+print("Array:", list(arr))
+
