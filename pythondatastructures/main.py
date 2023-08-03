@@ -74,11 +74,11 @@ for char in text:
     character_count[char] += 1
 print("Character Count using a DefaultDict:", dict(character_count))
 
-# Heapq
+# Heapqueue: A heap is a binary tree where the parent node is always less than or equal to its children. It's commonly used to implement priority queues.
 import heapq
-heap = [3, 1, 4, 1, 5, 9, 2]
-heapq.heapify(heap)
-print("Heap:", heap)
+numbers = [3, 1, 4, 1, 5, 9, 2]
+heapq.heapify(numbers)
+print("Heap:", numbers)
 
 # OrderedDict
 from collections import OrderedDict
