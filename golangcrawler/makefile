@@ -30,7 +30,7 @@ WEBSERVER = simplewebserver
 
 build_go:
 	go build -o $(CRAWLER)X $(CRAWLER).go
-	go build -o $(WEBSERVER)X $(WEBSERVER).go
+	go build -o $(WEBSERVER)/$(WEBSERVER)X $(WEBSERVER)/$(WEBSERVER).go
 
 run_crawler_race:
 	go run -race $(CRAWLER).go
