@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"log/slog"
+	"os"
 	"time"
 )
 
@@ -55,6 +56,24 @@ func main() {
 
 	// User completes the purchase
 	slog.Info("Purchase completed",
+		"user", user,
+		"product", product,
+		"timestamp", time.Now(),
+	)
+
+	// Create a logger with JSONHandler
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	fmt.Println("---------------------------------------")
+
+	// User adds a product to the cart
+	logger.Info("Product added to cart",
+		"user", user,
+		"product", product,
+		"timestamp", time.Now(),
+	)
+
+	// User completes the purchase
+	logger.Info("Purchase completed",
 		"user", user,
 		"product", product,
 		"timestamp", time.Now(),
