@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"log/slog"
 	"os"
@@ -32,6 +33,14 @@ func (p Product) LogValue() slog.Value {
 		slog.String("name", p.Name),
 		slog.Float64("price", p.Price),
 	)
+}
+
+type Secret string
+
+// LogValue ensures that the secret remains hidden when using slog logging.
+// It adheres to the slog.LogValuer interface.
+func (Secret) LogValue() slog.Value {
+	return slog.StringValue("NOT_REVEALED")
 }
 
 func main() {
@@ -73,6 +82,7 @@ func main() {
 		"user", user,
 		"product", product,
 		"timestamp", time.Now(),
+		"env_user", os.Getenv("USER"),
 	)
 
 	// User completes the purchase
@@ -80,5 +90,11 @@ func main() {
 		"user", user,
 		"product", product,
 		"timestamp", time.Now(),
+		"env_user", os.Getenv("USER"),
 	)
+
+	logger = slog.Default()
+	logger.LogAttrs(context.Background(), slog.LevelInfo, "Bye 42Snippets")
+	secret := Secret("Psw0rd123Monkey")
+	logger.Info("Not reveal this secret: ", "secret", secret)
 }
