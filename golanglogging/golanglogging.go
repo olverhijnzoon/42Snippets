@@ -41,6 +41,8 @@ func main() {
 
 	/*
 		This Go code defines two data structures: User and Product, each with their respective fields and methods to log their values using the slog logging library. The main function initializes sample data for a user and a product, and then logs two events: adding a product to the cart and completing a purchase, both with associated user, product, and timestamp details. The logging methods utilize the custom LogValue methods of the User and Product types to format their data for logging.
+
+		HandlerOptions contains logging options; AddSource adds the source code position to the log output.
 	*/
 
 	// Sample data
@@ -62,7 +64,8 @@ func main() {
 	)
 
 	// Create a logger with JSONHandler
-	logger := slog.New(slog.NewJSONHandler(os.Stdout, nil))
+	handlerOptions := slog.HandlerOptions{AddSource: true}
+	logger := slog.New(slog.NewJSONHandler(os.Stdout, &handlerOptions))
 	fmt.Println("---------------------------------------")
 
 	// User adds a product to the cart
