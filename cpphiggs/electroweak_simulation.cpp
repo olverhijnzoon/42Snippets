@@ -24,7 +24,7 @@ int main() {
     std::cout << "## Higgs" << std::endl;
 
     // Initialize Higgs Field
-    double mu2_value = -2.0;
+    double mu2_value = -1.0;
     double lambda_value = 0.5;
     auto higgs = std::make_unique<HiggsField>(mu2_value, lambda_value);
     std::cout << "Higgs Field VEV: " << higgs->getVacuumExpectationValue() << " GeV" << std::endl;
