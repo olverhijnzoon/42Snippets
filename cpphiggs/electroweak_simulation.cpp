@@ -89,6 +89,10 @@ int main() {
     double lambda_value = 0.5;
     auto higgs = std::make_unique<HiggsField>(mu2_value, lambda_value);
 
+    // Print the Vacuum Expectation Value (VEV) of the Higgs Field
+    std::cout << "Higgs Field VEV: " << higgs->getVacuumExpectationValue() << " GeV" << std::endl;
+
+
     std::vector<std::unique_ptr<Particle>> particles;
     particles.push_back(std::make_unique<Boson>("W"));
     particles.push_back(std::make_unique<Boson>("Z"));
