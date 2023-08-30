@@ -80,7 +80,14 @@ public:
 };
 
 int main() {
-    auto higgs = std::make_unique<HiggsField>(-1.0, 0.5);
+
+    std::cout << "# 42Snippets" << std::endl;
+    std::cout << "## Higgs" << std::endl;
+
+    // Define parameters for the Higgs potential and create a unique pointer to a HiggsField object 
+    double mu2_value = -1.0;
+    double lambda_value = 0.5;
+    auto higgs = std::make_unique<HiggsField>(mu2_value, lambda_value);
 
     std::vector<std::unique_ptr<Particle>> particles;
     particles.push_back(std::make_unique<Boson>("W"));
