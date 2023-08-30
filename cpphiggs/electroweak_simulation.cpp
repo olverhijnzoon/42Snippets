@@ -3,6 +3,9 @@
 #include <string>
 #include <vector>
 
+// Forward declaration
+class ParticleInteraction;
+
 // Higgs Field class
 class HiggsField {
 private:
@@ -22,10 +25,26 @@ protected:
 
 public:
     explicit Particle(std::string n) : name(std::move(n)) {}
-    virtual ~Particle() = default;  // Virtual destructor
+    virtual ~Particle() = default;
+
     virtual void interactWithHiggs(const HiggsField& higgs) = 0;
+    virtual std::unique_ptr<ParticleInteraction> interact() = 0;  // New interaction method
+
     virtual void display() const {
         std::cout << "Particle: " << name << ", Mass: " << mass << " GeV" << std::endl;
+    }
+};
+
+// Particle Interaction class
+class ParticleInteraction {
+private:
+    std::string description;
+
+public:
+    explicit ParticleInteraction(std::string desc) : description(std::move(desc)) {}
+
+    void display() const {
+        std::cout << description << std::endl;
     }
 };
 
@@ -33,12 +52,16 @@ public:
 class Boson : public Particle {
 public:
     using Particle::Particle;
-    virtual ~Boson() override = default;  // Virtual destructor
+    virtual ~Boson() override = default;
+
     void interactWithHiggs(const HiggsField& higgs) override {
         if (name == "W" || name == "Z") {
-            mass = higgs.getVacuumExpectationValue();  // Simplified representation
+            mass = higgs.getVacuumExpectationValue();
         }
-        // photon remains massless by default
+    }
+
+    std::unique_ptr<ParticleInteraction> interact() override {
+        return nullptr;  // No specific interaction for bosons in this model
     }
 };
 
@@ -46,15 +69,23 @@ public:
 class Fermion : public Particle {
 public:
     using Particle::Particle;
-    virtual ~Fermion() override = default;  // Virtual destructor
+    virtual ~Fermion() override = default;
+
     void interactWithHiggs(const HiggsField& higgs) override {
         if (name == "electron") {
-            mass = 0.511;  // MeV, simplified representation
+            mass = 0.511;
         } else if (name == "neutrino") {
-            mass = 0.00001;  // MeV, very tiny mass
+            mass = 0.00001;
         } else if (name == "up quark" || name == "down quark") {
-            mass = 2.3;  // MeV for up quark, simplified representation
+            mass = 2.3;
         }
+    }
+
+    std::unique_ptr<ParticleInteraction> interact() override {
+        if (name == "up quark") {
+            return std::make_unique<ParticleInteraction>("u -> d + W+");
+        }
+        return nullptr;  // No specific interaction for other fermions in this model
     }
 };
 
@@ -73,6 +104,10 @@ int main() {
     for (const auto& particle : particles) {
         particle->interactWithHiggs(*higgs);
         particle->display();
+        auto interaction = particle->interact();
+        if (interaction) {
+            interaction->display();
+        }
     }
 
     return 0;
