@@ -2,20 +2,10 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include "higgs_field.h"
 
 // Forward declaration
 class ParticleInteraction;
-
-// Higgs Field class
-class HiggsField {
-private:
-    constexpr static double vacuumExpectationValue = 246.0;  // GeV
-
-public:
-    double getVacuumExpectationValue() const {
-        return vacuumExpectationValue;
-    }
-};
 
 // Base Particle class
 class Particle {
