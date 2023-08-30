@@ -3,96 +3,11 @@
 #include <string>
 #include <vector>
 #include "higgs_field.h"
+#include "particle.h"
+#include "boson.h"
+#include "fermion.h"
 
-// Forward declaration
-class ParticleInteraction;
-
-// Base Particle class
-class Particle {
-protected:
-    std::string name;
-    double mass{0.0};
-
-public:
-    explicit Particle(std::string n) : name(std::move(n)) {}
-    virtual ~Particle() = default;
-
-    virtual void interactWithHiggs(const HiggsField& higgs) = 0;
-    virtual std::unique_ptr<ParticleInteraction> interact() = 0;  // New interaction method
-
-    virtual void display() const {
-        std::cout << "Particle: " << name << ", Mass: " << mass << " GeV" << std::endl;
-    }
-};
-
-// Particle Interaction class
-class ParticleInteraction {
-private:
-    std::string description;
-
-public:
-    explicit ParticleInteraction(std::string desc) : description(std::move(desc)) {}
-
-    void display() const {
-        std::cout << description << std::endl;
-    }
-};
-
-// Bosons
-class Boson : public Particle {
-public:
-    using Particle::Particle;
-    virtual ~Boson() override = default;
-
-    void interactWithHiggs(const HiggsField& higgs) override {
-        if (name == "W" || name == "Z") {
-            mass = higgs.getVacuumExpectationValue();
-        }
-    }
-
-    std::unique_ptr<ParticleInteraction> interact() override {
-        return nullptr;  // No specific interaction for bosons in this model
-    }
-};
-
-// Fermions
-class Fermion : public Particle {
-public:
-    using Particle::Particle;
-    virtual ~Fermion() override = default;
-
-    void interactWithHiggs(const HiggsField& higgs) override {
-        if (name == "electron") {
-            mass = 0.511;
-        } else if (name == "neutrino") {
-            mass = 0.00001;
-        } else if (name == "up quark" || name == "down quark") {
-            mass = 2.3;
-        }
-    }
-
-    std::unique_ptr<ParticleInteraction> interact() override {
-        if (name == "up quark") {
-            return std::make_unique<ParticleInteraction>("u -> d + W+");
-        }
-        return nullptr;  // No specific interaction for other fermions in this model
-    }
-};
-
-int main() {
-
-    std::cout << "# 42Snippets" << std::endl;
-    std::cout << "## Higgs" << std::endl;
-
-    // Define parameters for the Higgs potential and create a unique pointer to a HiggsField object 
-    double mu2_value = -1.0;
-    double lambda_value = 0.5;
-    auto higgs = std::make_unique<HiggsField>(mu2_value, lambda_value);
-
-    // Print the Vacuum Expectation Value (VEV) of the Higgs Field
-    std::cout << "Higgs Field VEV: " << higgs->getVacuumExpectationValue() << " GeV" << std::endl;
-
-
+std::vector<std::unique_ptr<Particle>> createParticles() {
     std::vector<std::unique_ptr<Particle>> particles;
     particles.push_back(std::make_unique<Boson>("W"));
     particles.push_back(std::make_unique<Boson>("Z"));
@@ -101,7 +16,21 @@ int main() {
     particles.push_back(std::make_unique<Fermion>("neutrino"));
     particles.push_back(std::make_unique<Fermion>("up quark"));
     particles.push_back(std::make_unique<Fermion>("down quark"));
+    return particles;
+}
 
+int main() {
+    std::cout << "# 42Snippets" << std::endl;
+    std::cout << "## Higgs" << std::endl;
+
+    // Initialize Higgs Field
+    double mu2_value = -2.0;
+    double lambda_value = 0.5;
+    auto higgs = std::make_unique<HiggsField>(mu2_value, lambda_value);
+    std::cout << "Higgs Field VEV: " << higgs->getVacuumExpectationValue() << " GeV" << std::endl;
+
+    // Create and interact particles
+    auto particles = createParticles();
     for (const auto& particle : particles) {
         particle->interactWithHiggs(*higgs);
         particle->display();
