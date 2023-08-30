@@ -1,13 +1,13 @@
 #include <iostream>
+#include <memory>
+#include <string>
 
 // Higgs Field class
 class HiggsField {
 private:
-    double vacuumExpectationValue;
+    constexpr static double vacuumExpectationValue = 246.0;  // GeV
 
 public:
-    HiggsField() : vacuumExpectationValue(246.0) {}  // GeV
-
     double getVacuumExpectationValue() const {
         return vacuumExpectationValue;
     }
@@ -17,17 +17,16 @@ public:
 class Particle {
 private:
     std::string name;
-    double mass;
+    double mass{0.0};
 
 public:
-    Particle(std::string n) : name(n), mass(0.0) {}
+    explicit Particle(std::string n) : name(std::move(n)) {}
 
     void interactWithHiggs(const HiggsField& higgs) {
         if (name == "W" || name == "Z") {
             mass = higgs.getVacuumExpectationValue();  // Simplified representation
-        } else if (name == "photon") {
-            mass = 0.0;
         }
+        // photon remains massless by default
     }
 
     void display() const {
@@ -36,19 +35,19 @@ public:
 };
 
 int main() {
-    HiggsField higgs;
+    auto higgs = std::make_unique<HiggsField>();
 
-    Particle W("W");
-    Particle Z("Z");
-    Particle photon("photon");
+    auto W = std::make_unique<Particle>("W");
+    auto Z = std::make_unique<Particle>("Z");
+    auto photon = std::make_unique<Particle>("photon");
 
-    W.interactWithHiggs(higgs);
-    Z.interactWithHiggs(higgs);
-    photon.interactWithHiggs(higgs);
+    W->interactWithHiggs(*higgs);
+    Z->interactWithHiggs(*higgs);
+    photon->interactWithHiggs(*higgs);
 
-    W.display();
-    Z.display();
-    photon.display();
+    W->display();
+    Z->display();
+    photon->display();
 
     return 0;
 }

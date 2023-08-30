@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -Wall -std=c++11
+CXXFLAGS = -Wall -std=c++20
 TARGET = electroweak_simulationX
 
 all: $(TARGET)
