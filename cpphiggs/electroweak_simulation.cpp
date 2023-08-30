@@ -80,7 +80,7 @@ public:
 };
 
 int main() {
-    auto higgs = std::make_unique<HiggsField>();
+    auto higgs = std::make_unique<HiggsField>(-1.0, 0.5);
 
     std::vector<std::unique_ptr<Particle>> particles;
     particles.push_back(std::make_unique<Boson>("W"));
