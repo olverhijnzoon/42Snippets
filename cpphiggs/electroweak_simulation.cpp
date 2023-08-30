@@ -22,6 +22,7 @@ protected:
 
 public:
     explicit Particle(std::string n) : name(std::move(n)) {}
+    virtual ~Particle() = default;  // Virtual destructor
     virtual void interactWithHiggs(const HiggsField& higgs) = 0;
     virtual void display() const {
         std::cout << "Particle: " << name << ", Mass: " << mass << " GeV" << std::endl;
@@ -32,6 +33,7 @@ public:
 class Boson : public Particle {
 public:
     using Particle::Particle;
+    virtual ~Boson() override = default;  // Virtual destructor
     void interactWithHiggs(const HiggsField& higgs) override {
         if (name == "W" || name == "Z") {
             mass = higgs.getVacuumExpectationValue();  // Simplified representation
@@ -44,6 +46,7 @@ public:
 class Fermion : public Particle {
 public:
     using Particle::Particle;
+    virtual ~Fermion() override = default;  // Virtual destructor
     void interactWithHiggs(const HiggsField& higgs) override {
         if (name == "electron") {
             mass = 0.511;  // MeV, simplified representation
