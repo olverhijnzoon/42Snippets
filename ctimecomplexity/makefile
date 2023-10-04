@@ -1,12 +1,10 @@
 BINARY=timecomplexity
 
-compile_c:
-	gcc -o ${BINARY}X ${BINARY}.c
-
-run_c:
+run: compile
 	./${BINARY}X
 
-cdo: compile_c run_c
+compile:
+	gcc -o ${BINARY}X ${BINARY}.c
 
 clean_binaries:
 	rm -f ./*X ./*X
