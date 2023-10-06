@@ -26,12 +26,3 @@ spec:
           - "9043"
         ports:
         - containerPort: 9088
-        livenessProbe:
-          httpGet:
-            path: /probe
-            port: 9088
-          initialDelaySeconds: 10
-          timeoutSeconds: 5
-          periodSeconds: 10
-          successThreshold: 1
-          failureThreshold: 3
