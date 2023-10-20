@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ignition-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ignition
+  template:
+    metadata:
+      labels:
+        app: ignition
+    spec:
+      containers:
+      - name: ignition-test
+        image: inductiveautomation/ignition:8.1.30
+        args:
+          # Gateway name
+          - "-n"
+          - "ignition-test"
+          # Public web address (must be specified)
+          - "-a"
+          - "localhost"
+          # Public HTTP port (must be specified)
+          - "-h"
+          - "9088"
+          # Public HTTPS port (must be specified)
+          - "-s"
+          - "9043"
+          # Max memory for JVM
+          - "-m"
+          - "512"
+        env:
+        - name: ACCEPT_IGNITION_EULA
+          value: "N"
+        - name: DISABLE_QUICKSTART
+          value: "true"
+        - name: GATEWAY_ADMIN_USERNAME
+          value: "admin0"
+        - name: GATEWAY_ADMIN_PASSWORD
+          value: "supersafe0"
