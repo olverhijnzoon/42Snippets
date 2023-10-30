@@ -1,0 +1,4 @@
+# file: base.ldif
+dn: ou=Users,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Users
