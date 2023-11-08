@@ -5,6 +5,7 @@ run:
 	kubectl apply -f openldap-service.yaml
 	ldapadd -H ldap://localhost:30389 -x -D "cn=admin,dc=example,dc=org" -w admin -f base.ldif
 	ldapadd -H ldap://localhost:30389 -x -D "cn=admin,dc=example,dc=org" -w admin -f admin.ldif
+	ldapadd -H ldap://localhost:30389 -x -D "cn=admin,dc=example,dc=org" -w admin -f operators.ldif
 	ldapsearch -H ldap://localhost:30389 -x -D "cn=admin,dc=example,dc=org" -w admin -b "dc=example,dc=org" "(objectClass=*)"
 
 clean:

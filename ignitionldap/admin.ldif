@@ -1,6 +1,6 @@
 dn: cn=admin0,ou=Users,dc=example,dc=org
 objectClass: top
-objectClass: person
+objectClass: person 
 objectClass: organizationalPerson
 objectClass: inetOrgPerson
 cn: admin0
