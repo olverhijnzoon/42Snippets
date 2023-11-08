@@ -40,3 +40,9 @@ spec:
           value: "admin0"
         - name: GATEWAY_ADMIN_PASSWORD
           value: "supersafe0"
+        - name: IGNITION_LDAP_SERVER_URL
+          value: "ldap://localhost:30389"
+        - name: IGNITION_LDAP_BIND_DN
+          value: "cn=admin,dc=example,dc=org"
+        - name: IGNITION_LDAP_BIND_PASSWORD
+          value: "admin"

@@ -1,0 +1,15 @@
+# Add new organizational unit for "operators"
+dn: ou=Operators,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Operators
+
+# Add a new user "operator1" to the "operators" OU
+dn: uid=operator1,ou=Operators,dc=example,dc=org
+objectClass: inetOrgPerson
+objectClass: organizationalPerson
+objectClass: person
+objectClass: top
+cn: operator1
+sn: operator1
+uid: operator1
+userPassword: supersafe1
