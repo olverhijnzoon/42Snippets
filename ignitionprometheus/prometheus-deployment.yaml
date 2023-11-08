@@ -20,12 +20,17 @@ spec:
         volumeMounts:
         - name: config-volume
           mountPath: /etc/prometheus
+        - name: rules-volume
+          mountPath: /etc/prometheus/rules
         ports:
         - containerPort: 9090
       volumes:
       - name: config-volume
         configMap:
           name: prometheus-config
+      - name: rules-volume
+        configMap:
+          name: prometheus-rules
 
 ---
 apiVersion: rbac.authorization.k8s.io/v1

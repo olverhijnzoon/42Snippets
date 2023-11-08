@@ -29,4 +29,5 @@ scrape_configs:
   - job_name: 'node-exporter'
     static_configs:
       - targets: ['node-exporter-service.default:9100']
-
+rule_files:
+  - "/etc/prometheus/rules/*.yaml"

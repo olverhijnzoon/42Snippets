@@ -11,6 +11,7 @@ deploy_blackbox:
 
 deploy_prometheus:
 	kubectl create configmap prometheus-config --from-file=prometheus-config.yaml
+	kubectl apply -f prometheus-rules.yaml
 	kubectl apply -f prometheus-deployment.yaml
 	kubectl apply -f prometheus-service.yaml
 
