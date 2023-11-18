@@ -13,12 +13,6 @@ const (
 	Leader
 )
 
-// Node represents a node in the Raft cluster.
-type Node struct {
-	ID   int
-	Addr string // Address of the node for communication
-}
-
 // LogEntry represents an entry in the Raft log.
 type LogEntry struct {
 	Term    int
@@ -38,10 +32,10 @@ type Consensus struct {
 }
 
 // Assuming a list of all nodes in the cluster:
-var nodes = []Node{
+var nodes = []*Node{
 	// TODO: Add nodes here
-	// Example: {ID: 1, Addr: "localhost:8001"},
-	//          {ID: 2, Addr: "localhost:8002"},
+	// Example: &Node{ID: 1, Addr: "localhost:8001"},
+	//          &Node{ID: 2, Addr: "localhost:8002"},
 }
 
 func NewConsensus() *Consensus {
